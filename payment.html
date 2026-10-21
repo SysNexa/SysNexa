@@ -1,199 +1,743 @@
-```html
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#5f259f">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="Secure checkout with UPI and other payment methods.">
 
-  <title>Secure UPI Payment</title>
+  <title>Secure Checkout</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    :root {
+      --primary: #6741d9;
+      --primary-dark: #5230bb;
+      --text: #202124;
+      --muted: #70757d;
+      --border: #e5e7eb;
+      --background: #f7f8fa;
+      --success: #137b48;
     }
+
+    * { box-sizing: border-box; }
 
     body {
+      margin: 0;
+      background: var(--background);
+      color: var(--text);
+      font-family: Inter, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", Roboto, Arial, sans-serif;
       min-height: 100vh;
+    }
+
+    button, input { font: inherit; }
+
+    .topbar {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+    }
+
+    .topbar-inner {
+      max-width: 1080px;
+      margin: auto;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: linear-gradient(135deg, #100b20, #35105a);
-      color: #222;
+      justify-content: space-between;
+      gap: 12px;
     }
 
-    .payment-card {
-      background: #fff;
-      width: 100%;
-      max-width: 420px;
-      padding: 32px 25px;
-      border-radius: 20px;
-      text-align: center;
-      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    .brand {
+      font-size: 19px;
+      font-weight: 750;
+      letter-spacing: -.5px;
     }
 
-    .logo {
-      color: #5f259f;
-      font-size: 32px;
-      font-weight: 800;
-      margin-bottom: 22px;
+    .brand span { color: var(--primary); }
+
+    .secure {
+      color: var(--muted);
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .layout {
+      max-width: 1000px;
+      margin: 48px auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(270px, .8fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      box-shadow: 0 8px 35px rgba(20, 25, 40, .035);
     }
 
     h1 {
-      font-size: 24px;
-      margin-bottom: 12px;
+      font-size: 27px;
+      margin: 0 0 8px;
+      letter-spacing: -.8px;
     }
 
-    .description {
-      color: #666;
+    h2 {
+      font-size: 17px;
+      margin: 0 0 18px;
+    }
+
+    .subtitle {
+      color: var(--muted);
       line-height: 1.6;
+      font-size: 14px;
+      margin: 0 0 27px;
+    }
+
+    .field-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 650;
+      margin-bottom: 9px;
+    }
+
+    .email {
+      width: 100%;
+      border: 1px solid #d8dbe2;
+      border-radius: 10px;
+      padding: 13px 14px;
+      outline: none;
       margin-bottom: 24px;
     }
 
-    label {
+    .email:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px #6741d91a;
+    }
+
+    .methods {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 9px;
+      margin-bottom: 20px;
+    }
+
+    .method {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 11px;
+      padding: 14px 5px;
+      cursor: pointer;
+      color: #50545d;
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    .method .symbol {
       display: block;
-      text-align: left;
-      font-weight: bold;
+      font-size: 21px;
       margin-bottom: 8px;
     }
 
-    input {
-      width: 100%;
-      padding: 14px;
-      border: 1px solid #d6d1df;
-      border-radius: 9px;
-      font-size: 18px;
-      margin-bottom: 20px;
-      outline-color: #5f259f;
+    .method.active {
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+      background: #f8f5ff;
     }
 
-    .upi-id {
-      background: #f5f0fa;
-      border-radius: 9px;
-      padding: 13px;
-      margin-bottom: 22px;
-      color: #5f259f;
-      font-weight: bold;
-      overflow-wrap: anywhere;
+    .payment-box {
+      background: #fafaff;
+      border: 1px solid #e9e4fa;
+      border-radius: 13px;
+      padding: 20px;
+      text-align: center;
     }
 
-    .pay-button {
-      width: 100%;
-      display: block;
-      padding: 16px;
-      background: #5f259f;
-      color: #fff;
-      border: none;
+    .upi-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 13px;
+      font-weight: 800;
+      color: #4e31a5;
+      margin-bottom: 13px;
+    }
+
+    .payment-box h3 {
+      font-size: 16px;
+      margin: 5px 0 8px;
+    }
+
+    .payment-box p {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+      margin: 0 0 15px;
+    }
+
+    .qr {
+      display: none;
+      width: 190px;
+      height: 190px;
+      object-fit: contain;
+      margin: 18px auto;
+      padding: 8px;
+      background: white;
+      border: 1px solid var(--border);
       border-radius: 10px;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
     }
 
-    .pay-button:hover {
-      background: #481780;
+    .qr.visible { display: block; }
+
+    .button {
+      display: block;
+      width: 100%;
+      border: 0;
+      background: var(--primary);
+      color: white;
+      font-weight: 700;
+      padding: 15px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background .2s, transform .2s;
+    }
+
+    .button:hover { background: var(--primary-dark); }
+    .button:active { transform: scale(.99); }
+    .button:disabled { opacity: .6; cursor: wait; }
+
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 14px 0 0;
+      text-align: center;
     }
 
     .notice {
-      margin-top: 18px;
-      font-size: 12px;
-      line-height: 1.6;
-      color: #777;
+      display: none;
+      padding: 12px;
+      border-radius: 9px;
+      font-size: 13px;
+      line-height: 1.5;
+      margin-top: 15px;
+      overflow-wrap: anywhere;
     }
 
-    #status {
-      margin-top: 14px;
-      color: #b42318;
-      font-size: 13px;
+    .notice.show { display: block; }
+    .notice.error { background: #fff0f0; color: #a12525; }
+    .notice.info { background: #f0f4ff; color: #303f80; }
+    .notice.success { background: #eaf8f0; color: var(--success); }
+
+    .summary-title {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .product {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .product-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 13px;
+      display: grid;
+      place-items: center;
+      background: #f0ebff;
+      color: var(--primary);
+      font-size: 23px;
+    }
+
+    .product-name { font-weight: 700; font-size: 14px; }
+    .product-desc { font-size: 12px; color: var(--muted); margin-top: 5px; }
+
+    .price-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 17px 0;
+      font-size: 14px;
+    }
+
+    .price-line.muted { color: var(--muted); }
+
+    .total {
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      margin-top: 22px;
+      font-weight: 750;
+      font-size: 16px;
+    }
+
+    .total strong { font-size: 23px; }
+
+    .security-note {
+      display: flex;
+      gap: 11px;
+      background: #f7f8fa;
+      border-radius: 10px;
+      padding: 13px;
+      margin-top: 25px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    footer {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px 30px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    footer a {
+      color: inherit;
+      margin: 0 8px;
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        grid-template-columns: 1fr;
+        margin: 24px auto;
+        padding: 0 14px;
+        gap: 16px;
+      }
+
+      .panel { padding: 22px 18px; }
+      h1 { font-size: 24px; }
+      .topbar { padding: 17px 16px; }
+      .brand { font-size: 17px; }
+      .secure { font-size: 11px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        transition: none !important;
+      }
     }
   </style>
 </head>
 
 <body>
-  <main class="payment-card">
-    <div class="logo">PhonePe</div>
-
-    <h1>Make a Payment</h1>
-
-    <p class="description">
-      Enter your payment amount and continue
-      to your preferred UPI payment app.
-    </p>
-
-    <label for="amount">Payment Amount (₹)</label>
-
-    <input
-      type="number"
-      id="amount"
-      placeholder="Enter amount"
-      min="1"
-      max="100000"
-      step="0.01"
-      inputmode="decimal"
-      required
-    >
-
-    <div class="upi-id">
-      UPI ID: 9591478095@ybl
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">Your<span>Store</span></div>
+      <div class="secure">🔒 Secure checkout</div>
     </div>
+  </header>
 
-    <button class="pay-button" id="payButton" type="button">
-      Pay with UPI
-    </button>
+  <main class="layout">
+    <section class="panel">
+      <h1>Complete your purchase</h1>
+      <p class="subtitle">
+        Choose your preferred payment method to continue securely.
+      </p>
 
-    <p id="status" role="status"></p>
+      <form id="checkoutForm">
+        <label class="field-label" for="email">Email address</label>
+        <input
+          class="email"
+          type="email"
+          id="email"
+          name="email"
+          placeholder="you@example.com"
+          autocomplete="email"
+          maxlength="254"
+          required
+        >
 
-    <p class="notice">
-      Your UPI app will open if supported by your device.
-      Verify the recipient and amount before authorizing
-      the payment. Payment completion is not verified by
-      this webpage.
-    </p>
+        <span class="field-label">Payment method</span>
+
+        <div class="methods" role="group" aria-label="Payment method">
+          <button class="method active" type="button"
+            data-method="UPI" aria-pressed="true">
+            <span class="symbol">▦</span>UPI / QR
+          </button>
+          <button class="method" type="button"
+            data-method="CARD" aria-pressed="false">
+            <span class="symbol">▤</span>Cards
+          </button>
+          <button class="method" type="button"
+            data-method="NETBANKING" aria-pressed="false">
+            <span class="symbol">⌂</span>Net banking
+          </button>
+        </div>
+
+        <div class="payment-box">
+          <div class="upi-mark" id="methodMark">UPI PAYMENT</div>
+
+          <h3 id="paymentTitle">Pay using any UPI app</h3>
+
+          <p id="paymentDescription">
+            Continue to the secure payment page to pay with your
+            preferred UPI app or scan the gateway-provided QR code.
+          </p>
+
+          <img id="qrImage" class="qr" alt="Payment QR code">
+
+          <p id="qrInstructions" hidden>
+            Scan this QR code using your UPI app. Complete payment
+            in the app and return to this page to check the status.
+          </p>
+
+          <button class="button" id="payButton" type="submit">
+            Continue to secure payment
+          </button>
+
+          <button class="button" id="checkButton" type="button"
+            style="display:none;margin-top:10px;background:#29243b">
+            Check payment status
+          </button>
+
+          <div class="notice" id="notice" role="status"
+            aria-live="polite"></div>
+        </div>
+
+        <p class="note">
+          Your payment is processed by the selected payment gateway.
+          Never share your UPI PIN or OTP with anyone.
+        </p>
+      </form>
+    </section>
+
+    <aside class="panel">
+      <div class="summary-title">
+        <h2 style="margin:0">Order summary</h2>
+        <span style="font-size:12px;color:#70757d">1 item</span>
+      </div>
+
+      <div class="product">
+        <div class="product-icon">✦</div>
+        <div style="flex:1">
+          <div class="product-name" id="productName">Premium Plan</div>
+          <div class="product-desc">Digital purchase</div>
+        </div>
+        <strong id="itemPrice">₹499.00</strong>
+      </div>
+
+      <div class="price-line muted">
+        <span>Subtotal</span>
+        <span id="subtotal">₹499.00</span>
+      </div>
+
+      <div class="price-line muted">
+        <span>Taxes</span>
+        <span id="taxes">As applicable</span>
+      </div>
+
+      <div class="price-line total">
+        <span>Total</span>
+        <strong id="total">₹499.00</strong>
+      </div>
+
+      <div class="security-note">
+        <span>🛡️</span>
+        <span>
+          <strong style="color:#333">Secure payment processing</strong><br>
+          Payment confirmation is based on the gateway's verified
+          transaction status, not a screenshot or browser redirect.
+        </span>
+      </div>
+    </aside>
   </main>
 
+  <footer>
+    <p>Protected checkout · Secure payment processing</p>
+    <a href="/privacy-policy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/contact.html">Contact</a>
+  </footer>
+
   <script>
-    const upiId = "9591478095@ybl";
-    const payeeName = "Payment Recipient";
+    "use strict";
 
-    document.getElementById("payButton").addEventListener(
-      "click",
-      function () {
-        const amountInput = document.getElementById("amount");
-        const status = document.getElementById("status");
-        const amount = Number(amountInput.value);
+    /*
+      REQUIRED BACKEND CONTRACT
 
-        status.textContent = "";
+      POST /api/payments/create
+      Request: { planId: "premium-monthly", method: "UPI",
+                 email: "customer@example.com" }
 
-        if (
-          !Number.isFinite(amount) ||
-          amount < 1 ||
-          amount > 100000
-        ) {
-          status.textContent =
-            "Please enter a valid amount between ₹1 and ₹1,00,000.";
-          amountInput.focus();
-          return;
-        }
+      Example UPI response:
+      {
+        "orderId": "server-generated-order-id",
+        "checkoutUrl": "https://gateway-hosted-checkout.example/...",
+        "qrCodeDataUrl": "data:image/png;base64,..."
+      }
 
-        const params = new URLSearchParams({
-          pa: upiId,
-          pn: payeeName,
-          am: amount.toFixed(2),
-          cu: "INR",
-          tn: "Website payment"
+      The checkout URL and QR data must come from your real gateway
+      integration. Never generate a fake payment QR.
+
+      GET /api/payments/status/:orderId
+      Example: { "status": "PENDING" | "COMPLETED" | "FAILED" }
+
+      The server must authenticate with the gateway and verify status.
+      It must calculate prices itself, not trust amounts from the client.
+    */
+
+    const API_BASE = ""; // Same-origin backend. Configure if needed.
+    const PLAN_ID = "premium-monthly";
+
+    const methods = document.querySelectorAll(".method");
+    const form = document.getElementById("checkoutForm");
+    const payButton = document.getElementById("payButton");
+    const checkButton = document.getElementById("checkButton");
+    const notice = document.getElementById("notice");
+    const qrImage = document.getElementById("qrImage");
+    const qrInstructions = document.getElementById("qrInstructions");
+
+    let selectedMethod = "UPI";
+    let currentOrderId = null;
+    let busy = false;
+
+    function showNotice(message, type = "info") {
+      notice.textContent = message;
+      notice.className = "notice show " + type;
+    }
+
+    function clearNotice() {
+      notice.textContent = "";
+      notice.className = "notice";
+    }
+
+    function setBusy(value) {
+      busy = value;
+      payButton.disabled = value;
+      payButton.textContent = value
+        ? "Please wait..."
+        : "Continue to secure payment";
+    }
+
+    methods.forEach(button => {
+      button.addEventListener("click", () => {
+        selectedMethod = button.dataset.method;
+
+        methods.forEach(item => {
+          const active = item === button;
+          item.classList.toggle("active", active);
+          item.setAttribute("aria-pressed", String(active));
         });
 
-        const upiUrl = "upi://pay?" + params.toString();
+        const labels = {
+          UPI: {
+            mark: "UPI PAYMENT",
+            title: "Pay using any UPI app",
+            description:
+              "Continue to the secure payment page to pay with UPI " +
+              "or display a real QR code returned by your gateway."
+          },
+          CARD: {
+            mark: "CARD PAYMENT",
+            title: "Pay securely by card",
+            description:
+              "Continue to your gateway's hosted checkout to enter " +
+              "your card details securely."
+          },
+          NETBANKING: {
+            mark: "NET BANKING",
+            title: "Pay through your bank",
+            description:
+              "Continue to the gateway to select your bank and " +
+              "authorize the payment."
+          }
+        };
 
-        window.location.href = upiUrl;
+        document.getElementById("methodMark").textContent =
+          labels[selectedMethod].mark;
+        document.getElementById("paymentTitle").textContent =
+          labels[selectedMethod].title;
+        document.getElementById("paymentDescription").textContent =
+          labels[selectedMethod].description;
+
+        qrImage.classList.remove("visible");
+        qrImage.removeAttribute("src");
+        qrInstructions.hidden = true;
+        checkButton.style.display = "none";
+        currentOrderId = null;
+        clearNotice();
+      });
+    });
+
+    async function readJson(response) {
+      let data;
+
+      try {
+        data = await response.json();
+      } catch {
+        throw new Error("The server returned an invalid response.");
       }
-    );
+
+      if (!response.ok) {
+        throw new Error(
+          typeof data.error === "string"
+            ? data.error
+            : "Payment request failed. Please try again."
+        );
+      }
+
+      return data;
+    }
+
+    form.addEventListener("submit", async event => {
+      event.preventDefault();
+
+      if (busy) return;
+
+      if (!form.reportValidity()) return;
+
+      clearNotice();
+      qrImage.classList.remove("visible");
+      qrImage.removeAttribute("src");
+      qrInstructions.hidden = true;
+      checkButton.style.display = "none";
+      currentOrderId = null;
+
+      setBusy(true);
+
+      try {
+        const response = await fetch(
+          API_BASE + "/api/payments/create",
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
+            body: JSON.stringify({
+              planId: PLAN_ID,
+              method: selectedMethod,
+              email: document.getElementById("email").value.trim()
+            })
+          }
+        );
+
+        const data = await readJson(response);
+
+        if (typeof data.orderId !== "string" ||
+            data.orderId.length < 1 ||
+            data.orderId.length > 200) {
+          throw new Error("The server did not return a valid order ID.");
+        }
+
+        currentOrderId = data.orderId;
+
+        if (selectedMethod === "UPI" && data.qrCodeDataUrl) {
+          // Only accept a QR image provided by the trusted backend.
+          if (!data.qrCodeDataUrl.startsWith("data:image/png;base64,") &&
+              !data.qrCodeDataUrl.startsWith("data:image/jpeg;base64,") &&
+              !data.qrCodeDataUrl.startsWith("data:image/webp;base64,")) {
+            throw new Error("The payment QR image format is invalid.");
+          }
+
+          qrImage.src = data.qrCodeDataUrl;
+          qrImage.classList.add("visible");
+          qrInstructions.hidden = false;
+
+          showNotice(
+            "Payment order created. Scan the gateway-provided QR " +
+            "and complete the payment in your UPI app.",
+            "info"
+          );
+
+          checkButton.style.display = "block";
+        } else if (typeof data.checkoutUrl === "string") {
+          let checkout;
+
+          try {
+            checkout = new URL(data.checkoutUrl);
+          } catch {
+            throw new Error("The gateway checkout URL is invalid.");
+          }
+
+          // Require HTTPS. Your backend must also validate the
+          // gateway's returned URL against its trusted domains.
+          if (checkout.protocol !== "https:") {
+            throw new Error("An HTTPS gateway URL is required.");
+          }
+
+          showNotice("Redirecting to the secure payment gateway...", "info");
+          window.location.assign(checkout.href);
+          return;
+        } else {
+          throw new Error(
+            "The server returned neither a gateway checkout URL " +
+            "nor a payment QR code."
+          );
+        }
+      } catch (error) {
+        showNotice(
+          error instanceof TypeError
+            ? "Cannot connect to the payment server. Check your backend " +
+              "deployment and try again."
+            : error.message || "Unable to start payment.",
+          "error"
+        );
+      } finally {
+        setBusy(false);
+      }
+    });
+
+    checkButton.addEventListener("click", async () => {
+      if (!currentOrderId || busy) return;
+
+      setBusy(true);
+      checkButton.disabled = true;
+      showNotice("Checking verified payment status...", "info");
+
+      try {
+        const response = await fetch(
+          API_BASE + "/api/payments/status/" +
+            encodeURIComponent(currentOrderId),
+          {
+            method: "GET",
+            credentials: "same-origin",
+            cache: "no-store"
+          }
+        );
+
+        const data = await readJson(response);
+
+        if (data.status === "COMPLETED") {
+          showNotice(
+            "Payment confirmed by the server. Your order is paid.",
+            "success"
+          );
+          checkButton.style.display = "none";
+        } else if (data.status === "FAILED") {
+          showNotice("The payment failed. You can try again.", "error");
+        } else {
+          showNotice(
+            "Payment is still pending. Complete it in your UPI app " +
+            "and check again shortly.",
+            "info"
+          );
+        }
+      } catch (error) {
+        showNotice(
+          error.message || "Unable to verify payment status.",
+          "error"
+        );
+      } finally {
+        setBusy(false);
+        checkButton.disabled = false;
+      }
+    });
   </script>
 </body>
 </html>
-```
