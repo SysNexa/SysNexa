@@ -36,7 +36,7 @@
       justify-content: center;
       align-items: center;
       padding: 24px;
-      overflow: hidden;
+      overflow-x: hidden;
       background:
         radial-gradient(ellipse at 20% 15%, #0b3260 0%, transparent 45%),
         radial-gradient(ellipse at 85% 85%, #062c4b 0%, transparent 40%),
@@ -84,7 +84,7 @@
       z-index: 1;
       width: 100%;
       max-width: 780px;
-      padding: 55px 35px;
+      padding: 45px 35px;
       text-align: center;
       border: 1px solid rgba(93, 174, 255, 0.22);
       border-radius: 28px;
@@ -94,31 +94,23 @@
       animation: appear 0.9s ease both;
     }
 
+    /* SysNexa Logo */
     .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 45px;
-      font-size: clamp(27px, 5vw, 38px);
-      font-weight: 800;
-      letter-spacing: -1.5px;
+      display: block;
+      width: 100%;
+      margin: 0 auto 35px;
+      text-align: center;
     }
 
-    .logo-icon {
-      display: grid;
-      place-items: center;
-      width: 47px;
-      height: 47px;
-      border-radius: 14px;
-      color: white;
-      font-size: 29px;
-      font-weight: 800;
-      background: linear-gradient(135deg, var(--cyan), var(--blue));
-      box-shadow: 0 0 28px rgba(0, 153, 255, 0.35);
-    }
-
-    .logo-name span {
-      color: var(--cyan);
+    .logo-image {
+      display: block;
+      width: 100%;
+      max-width: 620px;
+      height: auto;
+      margin: 0 auto;
+      object-fit: contain;
+      border-radius: 10px;
+      filter: drop-shadow(0 0 22px rgba(0, 153, 255, 0.12));
     }
 
     .status {
@@ -215,6 +207,16 @@
       background: rgba(255, 255, 255, 0.035);
       color: #c4d5e8;
       font-size: 12px;
+      transition:
+        border-color 0.3s ease,
+        background 0.3s ease,
+        transform 0.3s ease;
+    }
+
+    .service:hover {
+      border-color: rgba(0, 217, 255, 0.5);
+      background: rgba(0, 217, 255, 0.07);
+      transform: translateY(-3px);
     }
 
     .footer {
@@ -231,28 +233,57 @@
     }
 
     @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.45; transform: scale(0.8); }
+      0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.45;
+        transform: scale(0.8);
+      }
     }
 
     @keyframes bounce {
-      0%, 60%, 100% { transform: translateY(0); opacity: 0.55; }
-      30% { transform: translateY(-9px); opacity: 1; }
+      0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.55;
+      }
+
+      30% {
+        transform: translateY(-9px);
+        opacity: 1;
+      }
     }
 
     @keyframes appear {
-      from { opacity: 0; transform: translateY(18px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     @media (max-width: 500px) {
+      body {
+        padding: 15px;
+      }
+
       .container {
-        padding: 38px 20px;
+        padding: 32px 20px;
         border-radius: 20px;
       }
 
       .logo {
-        margin-bottom: 35px;
+        margin-bottom: 30px;
+      }
+
+      .logo-image {
+        max-width: 100%;
       }
 
       h1 {
@@ -269,6 +300,10 @@
 
       .service {
         font-size: 11px;
+      }
+
+      .footer {
+        margin-top: 30px;
       }
     }
 
@@ -288,9 +323,15 @@
 
   <main class="container">
 
+    <!-- SysNexa Logo -->
     <div class="logo" aria-label="SysNexa">
-      <div class="logo-icon">S</div>
-      <div class="logo-name">Sys<span>Nexa</span></div>
+      <img
+        src="webimg/logo.png"
+        alt="SysNexa — Repair, Upgrade, Connect"
+        class="logo-image"
+        width="2048"
+        height="576"
+      >
     </div>
 
     <div class="status">
@@ -317,7 +358,9 @@
       <span></span>
     </div>
 
-    <p class="loading-text">Building a better tech experience</p>
+    <p class="loading-text">
+      Building a better tech experience
+    </p>
 
     <div class="services">
       <div class="service">Desktop & Laptop Repair</div>
