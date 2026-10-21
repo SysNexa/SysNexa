@@ -1,0 +1,199 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#5f259f">
+
+  <title>Secure UPI Payment</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #100b20, #35105a);
+      color: #222;
+    }
+
+    .payment-card {
+      background: #fff;
+      width: 100%;
+      max-width: 420px;
+      padding: 32px 25px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 15px 45px rgba(0, 0, 0, 0.3);
+    }
+
+    .logo {
+      color: #5f259f;
+      font-size: 32px;
+      font-weight: 800;
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      font-size: 24px;
+      margin-bottom: 12px;
+    }
+
+    .description {
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      border: 1px solid #d6d1df;
+      border-radius: 9px;
+      font-size: 18px;
+      margin-bottom: 20px;
+      outline-color: #5f259f;
+    }
+
+    .upi-id {
+      background: #f5f0fa;
+      border-radius: 9px;
+      padding: 13px;
+      margin-bottom: 22px;
+      color: #5f259f;
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    .pay-button {
+      width: 100%;
+      display: block;
+      padding: 16px;
+      background: #5f259f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .pay-button:hover {
+      background: #481780;
+    }
+
+    .notice {
+      margin-top: 18px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: #777;
+    }
+
+    #status {
+      margin-top: 14px;
+      color: #b42318;
+      font-size: 13px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="payment-card">
+    <div class="logo">PhonePe</div>
+
+    <h1>Make a Payment</h1>
+
+    <p class="description">
+      Enter your payment amount and continue
+      to your preferred UPI payment app.
+    </p>
+
+    <label for="amount">Payment Amount (₹)</label>
+
+    <input
+      type="number"
+      id="amount"
+      placeholder="Enter amount"
+      min="1"
+      max="100000"
+      step="0.01"
+      inputmode="decimal"
+      required
+    >
+
+    <div class="upi-id">
+      UPI ID: 9591478095@ybl
+    </div>
+
+    <button class="pay-button" id="payButton" type="button">
+      Pay with UPI
+    </button>
+
+    <p id="status" role="status"></p>
+
+    <p class="notice">
+      Your UPI app will open if supported by your device.
+      Verify the recipient and amount before authorizing
+      the payment. Payment completion is not verified by
+      this webpage.
+    </p>
+  </main>
+
+  <script>
+    const upiId = "9591478095@ybl";
+    const payeeName = "Payment Recipient";
+
+    document.getElementById("payButton").addEventListener(
+      "click",
+      function () {
+        const amountInput = document.getElementById("amount");
+        const status = document.getElementById("status");
+        const amount = Number(amountInput.value);
+
+        status.textContent = "";
+
+        if (
+          !Number.isFinite(amount) ||
+          amount < 1 ||
+          amount > 100000
+        ) {
+          status.textContent =
+            "Please enter a valid amount between ₹1 and ₹1,00,000.";
+          amountInput.focus();
+          return;
+        }
+
+        const params = new URLSearchParams({
+          pa: upiId,
+          pn: payeeName,
+          am: amount.toFixed(2),
+          cu: "INR",
+          tn: "Website payment"
+        });
+
+        const upiUrl = "upi://pay?" + params.toString();
+
+        window.location.href = upiUrl;
+      }
+    );
+  </script>
+</body>
+</html>
+```
