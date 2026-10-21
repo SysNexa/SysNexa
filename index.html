@@ -30,7 +30,7 @@
       box-sizing: border-box;
     }
 
-    html {
+  html {
       scroll-behavior: smooth;
       scroll-padding-top: 90px;
     }
@@ -864,6 +864,234 @@
         transition: none !important;
       }
     }
+
+
+
+
+
+
+
+/* ===== SysNexa Professional Image Gallery ===== */
+
+.image-showcase {
+  padding: 65px 0;
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(56,189,248,.09), transparent 65%),
+    #08172a;
+  border-bottom: 1px solid var(--border);
+}
+
+.image-showcase-heading {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.image-showcase-heading h2 {
+  font-size: clamp(27px, 4vw, 38px);
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.image-showcase-heading h2 span {
+  color: var(--blue);
+}
+
+.image-showcase-heading p {
+  color: var(--muted);
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+.image-showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.showcase-card {
+  position: relative;
+  min-width: 0;
+  height: 290px;
+  overflow: hidden;
+  border-radius: 15px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  isolation: isolate;
+}
+
+.showcase-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.showcase-card:hover img {
+  transform: scale(1.07);
+}
+
+.showcase-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(3, 12, 25, .97) 0%,
+    rgba(3, 12, 25, .55) 38%,
+    rgba(3, 12, 25, .02) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+
+.showcase-caption {
+  position: absolute;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 17px;
+}
+
+.showcase-caption span {
+  display: inline-block;
+  color: var(--blue);
+  background: rgba(7, 20, 38, .78);
+  border: 1px solid rgba(56,189,248,.3);
+  border-radius: 5px;
+  padding: 3px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.showcase-caption h3 {
+  font-size: 18px;
+  line-height: 1.3;
+  margin-bottom: 5px;
+}
+
+.showcase-caption p {
+  color: #d2deed;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.image-feature {
+  padding: 65px 0;
+  background: var(--bg);
+}
+
+.image-feature-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 45px;
+}
+
+.image-feature-photo {
+  position: relative;
+  min-height: 350px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+
+.image-feature-photo img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0;
+  object-fit: cover;
+}
+
+.image-feature-content h2 {
+  font-size: clamp(28px, 4vw, 40px);
+  line-height: 1.25;
+  margin-bottom: 16px;
+}
+
+.image-feature-content h2 span {
+  color: var(--blue);
+}
+
+.image-feature-content p {
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.image-feature-points {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.image-feature-points li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.image-feature-points li span {
+  color: var(--green);
+}
+
+@media (max-width: 900px) {
+  .image-showcase-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .showcase-card {
+    height: 270px;
+  }
+
+  .image-feature-grid {
+    gap: 28px;
+  }
+}
+
+@media (max-width: 600px) {
+  .image-showcase {
+    padding: 48px 0;
+  }
+
+  .image-showcase-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .showcase-card {
+    height: 280px;
+  }
+
+  .image-feature {
+    padding: 45px 0;
+  }
+
+  .image-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .image-feature-photo {
+    min-height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .showcase-card img {
+    transition: none;
+  }
+}
+
+
+
+
   </style>
 </head>
 
@@ -897,82 +1125,77 @@
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <div class="container hero-grid">
 
-        <div>
-          <div class="eyebrow">
-            <span class="dot"></span>
-            Your Technology Support Partner
-          </div>
+<!-- SysNexa: Professional Service Image Showcase -->
 
-          <h1>
-            Technology Problems?
-            <span>We've Got Solutions.</span>
-          </h1>
+<section class="image-showcase" aria-label="Our technology services">
+  <div class="container">
 
-          <p>
-            From desktop and laptop repairs to mobile servicing,
-            network troubleshooting and system upgrades, SysNexa
-            helps keep your technology running smoothly.
-          </p>
+    <div class="image-showcase-heading">
+      <div class="eyebrow">Technology In Action</div>
+      <h2>Expert Care for <span>Every Device</span></h2>
+      <p>
+        From computer maintenance and hardware upgrades to smartphone
+        servicing and network solutions, explore our technology services.
+      </p>
+    </div>
 
-          <div class="hero-buttons">
-            <a href="#contact" class="btn btn-primary">
-              Request a Service →
-            </a>
-            <a href="#services" class="btn btn-outline">
-              Explore Services
-            </a>
-          </div>
+    <div class="image-showcase-grid">
 
-          <div class="hero-note">
-            Reliable support for home users, professionals and businesses.
-          </div>
+      <article class="showcase-card">
+        <img
+          src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&w=900&q=85"
+          alt="Desktop computer hardware and PC components"
+          loading="lazy">
+        <div class="showcase-caption">
+          <span>Hardware</span>
+          <h3>Desktop & PC Repair</h3>
+          <p>Hardware diagnostics, repairs and component replacement.</p>
         </div>
+      </article>
 
-        <div class="hero-visual" aria-label="Devices supported by SysNexa">
-          <div class="orbit"></div>
-
-          <div class="device-card">
-            <h3>One Platform. All Your Devices.</h3>
-
-            <div class="device-row">
-              <div class="device-icon">🖥️</div>
-              <div>
-                <strong>Desktop & Workstations</strong>
-                <small>Repairs, upgrades and optimization</small>
-              </div>
-            </div>
-
-            <div class="device-row">
-              <div class="device-icon">💻</div>
-              <div>
-                <strong>Laptops & Notebooks</strong>
-                <small>Hardware and software support</small>
-              </div>
-            </div>
-
-            <div class="device-row">
-              <div class="device-icon">📱</div>
-              <div>
-                <strong>Mobile Devices</strong>
-                <small>Smartphone diagnostics and servicing</small>
-              </div>
-            </div>
-
-            <div class="device-row">
-              <div class="device-icon">🌐</div>
-              <div>
-                <strong>Networks & IT Systems</strong>
-                <small>Connectivity and troubleshooting</small>
-              </div>
-            </div>
-          </div>
+      <article class="showcase-card">
+        <img
+          src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=900&q=85"
+          alt="Laptop computer for maintenance and troubleshooting"
+          loading="lazy">
+        <div class="showcase-caption">
+          <span>Performance</span>
+          <h3>Laptop Servicing</h3>
+          <p>System optimization, software fixes and upgrades.</p>
         </div>
+      </article>
 
-      </div>
-    </section>
+      <article class="showcase-card">
+        <img
+          src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=900&q=85"
+          alt="Smartphone representing mobile device servicing"
+          loading="lazy">
+        <div class="showcase-caption">
+          <span>Mobile Care</span>
+          <h3>Smartphone Repair</h3>
+          <p>Mobile diagnostics and device servicing solutions.</p>
+        </div>
+      </article>
+
+      <article class="showcase-card">
+        <img
+          src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=85"
+          alt="Professional network and server infrastructure"
+          loading="lazy">
+        <div class="showcase-caption">
+          <span>Connectivity</span>
+          <h3>Network Solutions</h3>
+          <p>Network diagnostics, connectivity and IT infrastructure.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- End SysNexa Image Showcase -->
+
 
     <div class="trust-strip">
       <div class="container trust-grid">
@@ -1103,69 +1326,51 @@
       </div>
     </section>
 
-    <section class="content-section about" id="about">
-      <div class="container about-grid">
+    
+<!-- SysNexa: Repair and Troubleshooting Feature -->
 
-        <div>
-          <div class="eyebrow">Why SysNexa?</div>
-          <h2>Your Technology Deserves <span style="color:var(--blue)">Better Support.</span></h2>
+<section class="image-feature">
+  <div class="container image-feature-grid">
 
-          <p>
-            SysNexa is designed to make computer, mobile and IT services
-            easier to access. Our goal is to help customers identify
-            technical issues, choose the right service and find a practical
-            solution for their devices.
-          </p>
+    <div class="image-feature-photo">
+      <img
+        src="https://images.unsplash.com/photo-1581092921461-eab62e97a780?auto=format&fit=crop&w=1200&q=85"
+        alt="Technical professional working on equipment"
+        loading="lazy">
+    </div>
 
-          <ul class="check-list">
-            <li><span>✓</span> Support for multiple device categories</li>
-            <li><span>✓</span> Hardware and software troubleshooting</li>
-            <li><span>✓</span> Network and connectivity assistance</li>
-            <li><span>✓</span> Upgrade and maintenance recommendations</li>
-            <li><span>✓</span> Service requests from one convenient place</li>
-          </ul>
+    <div class="image-feature-content">
+      <div class="eyebrow">Professional Technical Support</div>
 
-          <a href="#contact" class="btn btn-primary">Talk to Our Team →</a>
-        </div>
+      <h2>
+        Diagnose the Problem.
+        <span>Find the Right Solution.</span>
+      </h2>
 
-        <div class="about-panel">
-          <h3>How Our Service Process Works</h3>
+      <p>
+        Slow systems, unexpected shutdowns, network failures or hardware
+        issues can interrupt your work. SysNexa helps customers identify
+        technical problems and explore suitable repair and upgrade options.
+      </p>
 
-          <div class="step">
-            <div class="step-number">01</div>
-            <div>
-              <strong>Submit Your Request</strong>
-              <p>Tell us about your device and the problem you're experiencing.</p>
-            </div>
-          </div>
+      <ul class="image-feature-points">
+        <li><span>✓</span> Desktop and laptop diagnostics</li>
+        <li><span>✓</span> RAM, SSD and hardware upgrades</li>
+        <li><span>✓</span> Software errors and operating system issues</li>
+        <li><span>✓</span> Wi-Fi, LAN and connectivity troubleshooting</li>
+        <li><span>✓</span> Mobile device diagnostics and support</li>
+      </ul>
 
-          <div class="step">
-            <div class="step-number">02</div>
-            <div>
-              <strong>Discuss the Problem</strong>
-              <p>Describe the symptoms and arrange an appropriate diagnostic option.</p>
-            </div>
-          </div>
+      <a href="#contact" class="btn btn-primary">
+        Book a Service →
+      </a>
+    </div>
 
-          <div class="step">
-            <div class="step-number">03</div>
-            <div>
-              <strong>Review the Solution</strong>
-              <p>Discuss repair options, estimated costs and the service approach.</p>
-            </div>
-          </div>
+  </div>
+</section>
 
-          <div class="step">
-            <div class="step-number">04</div>
-            <div>
-              <strong>Complete the Service</strong>
-              <p>Proceed with the agreed repair or technical support after approval.</p>
-            </div>
-          </div>
-        </div>
+<!-- End SysNexa Repair Feature -->
 
-      </div>
-    </section>
 
     <section class="content-section" id="contact">
       <div class="container booking-grid">
