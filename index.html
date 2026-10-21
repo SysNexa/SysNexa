@@ -1,0 +1,1469 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#071426">
+
+  <title>SysNexa | Computer, Laptop & Mobile Repair</title>
+
+  <meta name="description"
+    content="SysNexa provides desktop and laptop repair, mobile servicing, network troubleshooting, hardware upgrades, software installation and IT support.">
+
+  <style>
+    :root {
+      --bg: #071426;
+      --surface: #0d2038;
+      --surface-light: #132b47;
+      --blue: #38bdf8;
+      --blue-dark: #1688d4;
+      --text: #f4f8ff;
+      --muted: #a8b8cc;
+      --border: rgba(148, 190, 230, .16);
+      --green: #39d98a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button, input, select, textarea {
+      font: inherit;
+    }
+
+    button, a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .container {
+      width: min(1160px, 92%);
+      margin: auto;
+    }
+
+    .topbar {
+      background: #04101f;
+      border-bottom: 1px solid var(--border);
+      color: var(--muted);
+      padding: 8px 0;
+      font-size: 12px;
+    }
+
+    .topbar .container {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(7, 20, 38, .94);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .navbar {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 25px;
+      font-weight: 850;
+      letter-spacing: -.8px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border-radius: 13px;
+      color: #061426;
+      background: linear-gradient(135deg, #67e8f9, #38bdf8, #3b82f6);
+      font-size: 22px;
+    }
+
+    .logo span {
+      color: var(--blue);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 25px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .nav-links a:hover {
+      color: var(--blue);
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid transparent;
+      border-radius: 9px;
+      padding: 12px 19px;
+      font-weight: 750;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+
+    .btn-primary {
+      background: var(--blue);
+      color: #061426;
+    }
+
+    .btn-primary:hover {
+      background: #7dd3fc;
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      border-color: var(--border);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--blue);
+      color: var(--blue);
+    }
+
+    .menu-toggle {
+      display: none;
+      color: white;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 7px 12px;
+      cursor: pointer;
+      font-size: 21px;
+    }
+
+    /* HERO */
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0 90px;
+      background:
+        radial-gradient(ellipse at 80% 20%, rgba(20, 135, 224, .20), transparent 40%),
+        radial-gradient(ellipse at 10% 80%, rgba(56, 189, 248, .08), transparent 35%);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 65px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 9px;
+      align-items: center;
+      color: var(--blue);
+      font-weight: 800;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 12px var(--green);
+    }
+
+    h1 {
+      font-size: clamp(38px, 5.3vw, 66px);
+      line-height: 1.12;
+      letter-spacing: -2.5px;
+      margin-bottom: 22px;
+    }
+
+    h1 span {
+      color: var(--blue);
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 590px;
+      font-size: 17px;
+      margin-bottom: 28px;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .hero-note {
+      margin-top: 24px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero-visual {
+      position: relative;
+      min-height: 365px;
+      display: grid;
+      place-items: center;
+    }
+
+    .orbit {
+      position: absolute;
+      width: 310px;
+      height: 310px;
+      border: 1px solid rgba(56, 189, 248, .18);
+      border-radius: 50%;
+    }
+
+    .orbit::before, .orbit::after {
+      content: "";
+      position: absolute;
+      border: 1px solid rgba(56, 189, 248, .12);
+      border-radius: 50%;
+    }
+
+    .orbit::before {
+      inset: 25px;
+    }
+
+    .orbit::after {
+      inset: 55px;
+    }
+
+    .device-card {
+      position: relative;
+      z-index: 1;
+      width: min(100%, 360px);
+      background: linear-gradient(145deg, #163452, #0b1b30);
+      border: 1px solid rgba(56,189,248,.28);
+      box-shadow: 0 25px 80px rgba(0,0,0,.35);
+      border-radius: 23px;
+      padding: 25px;
+    }
+
+    .device-card h3 {
+      font-size: 17px;
+      margin-bottom: 18px;
+    }
+
+    .device-row {
+      display: flex;
+      gap: 13px;
+      align-items: center;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .device-row:last-child {
+      border-bottom: 0;
+    }
+
+    .device-icon {
+      display: grid;
+      place-items: center;
+      width: 43px;
+      height: 43px;
+      border-radius: 12px;
+      background: rgba(56,189,248,.12);
+      font-size: 23px;
+    }
+
+    .device-row strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .device-row small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* TRUST STRIP */
+
+    .trust-strip {
+      background: #0b1d32;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .trust-item {
+      padding: 24px 12px;
+      text-align: center;
+      border-right: 1px solid var(--border);
+    }
+
+    .trust-item:last-child {
+      border: 0;
+    }
+
+    .trust-item strong {
+      display: block;
+      font-size: 15px;
+    }
+
+    .trust-item small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* GENERAL SECTIONS */
+
+    section.content-section {
+      padding: 85px 0;
+    }
+
+    .section-heading {
+      max-width: 690px;
+      margin: 0 auto 45px;
+      text-align: center;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(29px, 4vw, 42px);
+      line-height: 1.2;
+      letter-spacing: -1px;
+      margin-bottom: 15px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+    }
+
+    .section-heading span {
+      color: var(--blue);
+    }
+
+    /* SERVICES */
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 19px;
+    }
+
+    .service-card {
+      padding: 25px;
+      border: 1px solid var(--border);
+      background: linear-gradient(145deg, #10243c, #0a192b);
+      border-radius: 16px;
+      transition: .25s;
+    }
+
+    .service-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(56,189,248,.55);
+      box-shadow: 0 14px 35px rgba(0,0,0,.18);
+    }
+
+    .service-icon {
+      width: 53px;
+      height: 53px;
+      display: grid;
+      place-items: center;
+      border-radius: 14px;
+      background: rgba(56,189,248,.12);
+      font-size: 27px;
+      margin-bottom: 18px;
+    }
+
+    .service-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .service-card p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 17px;
+    }
+
+    .service-card a {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 750;
+    }
+
+    /* ABOUT */
+
+    .about {
+      background: #0a1a2d;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 55px;
+      align-items: center;
+    }
+
+    .about h2 {
+      font-size: clamp(30px, 4vw, 43px);
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .about p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .check-list {
+      list-style: none;
+      display: grid;
+      gap: 12px;
+      margin: 23px 0;
+    }
+
+    .check-list li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .check-list li span {
+      color: var(--green);
+    }
+
+    .about-panel {
+      border: 1px solid var(--border);
+      background: linear-gradient(135deg, #102b48, #0b1b2f);
+      border-radius: 20px;
+      padding: 30px;
+    }
+
+    .about-panel h3 {
+      font-size: 21px;
+      margin-bottom: 20px;
+    }
+
+    .step {
+      display: flex;
+      gap: 15px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step:last-child {
+      border: 0;
+    }
+
+    .step-number {
+      min-width: 36px;
+      height: 36px;
+      display: grid;
+      place-items: center;
+      background: rgba(56,189,248,.13);
+      color: var(--blue);
+      border-radius: 10px;
+      font-weight: 800;
+    }
+
+    .step p {
+      font-size: 13px;
+      margin: 4px 0 0;
+    }
+
+    /* BOOKING */
+
+    .booking-grid {
+      display: grid;
+      grid-template-columns: .8fr 1.2fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .booking-info h2 {
+      font-size: 36px;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+
+    .booking-info p {
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .contact-line {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .contact-line strong {
+      display: block;
+      font-size: 14px;
+    }
+
+    .contact-line small {
+      color: var(--muted);
+      overflow-wrap: anywhere;
+    }
+
+    .booking-form {
+      padding: 30px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    .booking-form h3 {
+      font-size: 23px;
+      margin-bottom: 5px;
+    }
+
+    .form-intro {
+      color: var(--muted);
+      font-size: 13px;
+      margin-bottom: 22px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .field input, .field select, .field textarea {
+      width: 100%;
+      min-width: 0;
+      padding: 12px 13px;
+      border: 1px solid #29415d;
+      border-radius: 8px;
+      outline: none;
+      background: #071629;
+      color: var(--text);
+    }
+
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(56,189,248,.08);
+    }
+
+    .field textarea {
+      resize: vertical;
+      min-height: 110px;
+    }
+
+    .field select option {
+      background: #071629;
+    }
+
+    .form-submit {
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .privacy-note {
+      color: var(--muted);
+      font-size: 11px;
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    /* CTA */
+
+    .cta {
+      padding: 60px 0;
+      background: linear-gradient(110deg, #10365a, #0d2340);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cta-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+    }
+
+    .cta h2 {
+      font-size: clamp(25px, 3vw, 35px);
+      line-height: 1.3;
+    }
+
+    .cta p {
+      color: #c4d5e9;
+      margin-top: 8px;
+    }
+
+    /* FOOTER */
+
+    footer {
+      padding: 45px 0 20px;
+      background: #040e1b;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 35px;
+    }
+
+    .footer-about p {
+      max-width: 370px;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 15px;
+    }
+
+    .footer-column h4 {
+      margin-bottom: 14px;
+    }
+
+    .footer-column a {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      margin: 8px 0;
+    }
+
+    .footer-column a:hover {
+      color: var(--blue);
+    }
+
+    .copyright {
+      border-top: 1px solid var(--border);
+      padding-top: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* FLOATING WHATSAPP */
+
+    .whatsapp {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 99;
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: #25d366;
+      color: #052d18;
+      font-size: 26px;
+      font-weight: 900;
+      box-shadow: 0 8px 30px rgba(0,0,0,.3);
+      transition: .2s;
+    }
+
+    .whatsapp:hover {
+      transform: scale(1.07);
+    }
+
+    @media (max-width: 900px) {
+      .hero-grid, .about-grid, .booking-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero {
+        padding: 70px 0;
+      }
+
+      .hero-visual {
+        min-height: 340px;
+      }
+
+      .services-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .about-grid, .booking-grid {
+        gap: 32px;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .topbar .container {
+        justify-content: center;
+        text-align: center;
+      }
+
+      .navbar {
+        min-height: 68px;
+      }
+
+      .logo {
+        font-size: 22px;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 68px;
+        left: 0;
+        right: 0;
+        padding: 20px 5%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+        background: #071426;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .nav-links a {
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links .btn {
+        margin-top: 12px;
+      }
+
+      h1 {
+        letter-spacing: -1.5px;
+      }
+
+      .hero p {
+        font-size: 15px;
+      }
+
+      .hero-visual {
+        min-height: 320px;
+      }
+
+      .orbit {
+        width: 270px;
+        height: 270px;
+      }
+
+      .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .trust-item:nth-child(2) {
+        border-right: 0;
+      }
+
+      .trust-item:nth-child(-n+2) {
+        border-bottom: 1px solid var(--border);
+      }
+
+      section.content-section {
+        padding: 60px 0;
+      }
+
+      .services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .booking-form {
+        padding: 22px 17px;
+      }
+
+      .cta-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+      }
+
+      .copyright {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *, *::before, *::after {
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="topbar">
+    <div class="container">
+      <span>Professional Technology Repair & IT Support</span>
+      <span>Desktop · Laptop · Mobile · Networking</span>
+    </div>
+  </div>
+
+  <header>
+    <nav class="navbar container" aria-label="Main navigation">
+      <a class="logo" href="#home" aria-label="SysNexa home">
+        <div class="logo-icon">⌘</div>
+        <div>Sys<span>Nexa</span></div>
+      </a>
+
+      <button class="menu-toggle" id="menuToggle"
+        aria-label="Toggle navigation" aria-expanded="false">☰</button>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact" class="btn btn-primary">Request a Repair ↗</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="container hero-grid">
+
+        <div>
+          <div class="eyebrow">
+            <span class="dot"></span>
+            Your Technology Support Partner
+          </div>
+
+          <h1>
+            Technology Problems?
+            <span>We've Got Solutions.</span>
+          </h1>
+
+          <p>
+            From desktop and laptop repairs to mobile servicing,
+            network troubleshooting and system upgrades, SysNexa
+            helps keep your technology running smoothly.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#contact" class="btn btn-primary">
+              Request a Service →
+            </a>
+            <a href="#services" class="btn btn-outline">
+              Explore Services
+            </a>
+          </div>
+
+          <div class="hero-note">
+            Reliable support for home users, professionals and businesses.
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Devices supported by SysNexa">
+          <div class="orbit"></div>
+
+          <div class="device-card">
+            <h3>One Platform. All Your Devices.</h3>
+
+            <div class="device-row">
+              <div class="device-icon">🖥️</div>
+              <div>
+                <strong>Desktop & Workstations</strong>
+                <small>Repairs, upgrades and optimization</small>
+              </div>
+            </div>
+
+            <div class="device-row">
+              <div class="device-icon">💻</div>
+              <div>
+                <strong>Laptops & Notebooks</strong>
+                <small>Hardware and software support</small>
+              </div>
+            </div>
+
+            <div class="device-row">
+              <div class="device-icon">📱</div>
+              <div>
+                <strong>Mobile Devices</strong>
+                <small>Smartphone diagnostics and servicing</small>
+              </div>
+            </div>
+
+            <div class="device-row">
+              <div class="device-icon">🌐</div>
+              <div>
+                <strong>Networks & IT Systems</strong>
+                <small>Connectivity and troubleshooting</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="trust-strip">
+      <div class="container trust-grid">
+        <div class="trust-item">
+          <strong>🛠️ Expert Support</strong>
+          <small>Device diagnostics</small>
+        </div>
+        <div class="trust-item">
+          <strong>💻 Multiple Devices</strong>
+          <small>PCs, laptops and mobiles</small>
+        </div>
+        <div class="trust-item">
+          <strong>🌐 Network Solutions</strong>
+          <small>Connectivity assistance</small>
+        </div>
+        <div class="trust-item">
+          <strong>⚙️ System Upgrades</strong>
+          <small>Performance improvements</small>
+        </div>
+      </div>
+    </div>
+
+    <section class="content-section" id="services">
+      <div class="container">
+
+        <div class="section-heading">
+          <div class="eyebrow">What We Do</div>
+          <h2>Complete <span>Technology Services</span></h2>
+          <p>
+            From everyday device problems to advanced IT troubleshooting,
+            find the support you need in one place.
+          </p>
+        </div>
+
+        <div class="services-grid">
+
+          <article class="service-card">
+            <div class="service-icon">🖥️</div>
+            <h3>Desktop Repair</h3>
+            <p>
+              Diagnose hardware failures, boot problems, system crashes,
+              overheating, power issues and desktop performance problems.
+            </p>
+            <a href="#contact" data-service="Desktop Repair">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">💻</div>
+            <h3>Laptop Repair</h3>
+            <p>
+              Troubleshoot laptop hardware, slow performance, charging
+              issues, keyboard faults, operating systems and drivers.
+            </p>
+            <a href="#contact" data-service="Laptop Repair">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">📱</div>
+            <h3>Mobile Repair</h3>
+            <p>
+              Smartphone diagnostics, software troubleshooting, charging
+              issues and hardware servicing through suitable repair options.
+            </p>
+            <a href="#contact" data-service="Mobile Repair">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🌐</div>
+            <h3>Network Troubleshooting</h3>
+            <p>
+              Resolve Wi-Fi connectivity, LAN issues, router configuration,
+              IP conflicts, DNS problems and internet connectivity faults.
+            </p>
+            <a href="#contact" data-service="Network Troubleshooting">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">⚡</div>
+            <h3>Hardware Upgrades</h3>
+            <p>
+              Upgrade RAM, install SSDs, replace compatible components
+              and improve system performance with suitable hardware.
+            </p>
+            <a href="#contact" data-service="Hardware Upgrades">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🪟</div>
+            <h3>OS & Software Installation</h3>
+            <p>
+              Operating system installation, driver configuration,
+              software setup, updates and common system error resolution.
+            </p>
+            <a href="#contact" data-service="OS & Software Installation">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🔧</div>
+            <h3>System Troubleshooting</h3>
+            <p>
+              Investigate blue screens, boot failures, freezing, crashes,
+              slow computers and application compatibility issues.
+            </p>
+            <a href="#contact" data-service="System Troubleshooting">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🛡️</div>
+            <h3>Security & Virus Removal</h3>
+            <p>
+              Help investigate malware symptoms, configure security
+              software, strengthen system settings and improve protection.
+            </p>
+            <a href="#contact" data-service="Security & Virus Removal">Request service →</a>
+          </article>
+
+          <article class="service-card">
+            <div class="service-icon">🏢</div>
+            <h3>Business IT Support</h3>
+            <p>
+              Computer maintenance, printer setup, email configuration,
+              backups, peripheral support and office IT troubleshooting.
+            </p>
+            <a href="#contact" data-service="Business IT Support">Request service →</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section about" id="about">
+      <div class="container about-grid">
+
+        <div>
+          <div class="eyebrow">Why SysNexa?</div>
+          <h2>Your Technology Deserves <span style="color:var(--blue)">Better Support.</span></h2>
+
+          <p>
+            SysNexa is designed to make computer, mobile and IT services
+            easier to access. Our goal is to help customers identify
+            technical issues, choose the right service and find a practical
+            solution for their devices.
+          </p>
+
+          <ul class="check-list">
+            <li><span>✓</span> Support for multiple device categories</li>
+            <li><span>✓</span> Hardware and software troubleshooting</li>
+            <li><span>✓</span> Network and connectivity assistance</li>
+            <li><span>✓</span> Upgrade and maintenance recommendations</li>
+            <li><span>✓</span> Service requests from one convenient place</li>
+          </ul>
+
+          <a href="#contact" class="btn btn-primary">Talk to Our Team →</a>
+        </div>
+
+        <div class="about-panel">
+          <h3>How Our Service Process Works</h3>
+
+          <div class="step">
+            <div class="step-number">01</div>
+            <div>
+              <strong>Submit Your Request</strong>
+              <p>Tell us about your device and the problem you're experiencing.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">02</div>
+            <div>
+              <strong>Discuss the Problem</strong>
+              <p>Describe the symptoms and arrange an appropriate diagnostic option.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">03</div>
+            <div>
+              <strong>Review the Solution</strong>
+              <p>Discuss repair options, estimated costs and the service approach.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step-number">04</div>
+            <div>
+              <strong>Complete the Service</strong>
+              <p>Proceed with the agreed repair or technical support after approval.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="content-section" id="contact">
+      <div class="container booking-grid">
+
+        <div class="booking-info">
+          <div class="eyebrow">Get Technical Help</div>
+          <h2>Let's Fix Your <span style="color:var(--blue)">Tech Problems.</span></h2>
+
+          <p>
+            Submit a service request with your device details and a brief
+            description of the problem. Our team can follow up using the
+            contact information you provide.
+          </p>
+
+          <div class="contact-line">
+            <div class="device-icon">📧</div>
+            <div>
+              <strong>Email Support</strong>
+              <small>YOUR_EMAIL@example.com</small>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <div class="device-icon">📞</div>
+            <div>
+              <strong>Phone / WhatsApp</strong>
+              <small>YOUR_PHONE_NUMBER</small>
+            </div>
+          </div>
+
+          <div class="contact-line">
+            <div class="device-icon">📍</div>
+            <div>
+              <strong>Service Location</strong>
+              <small>YOUR CITY / SERVICE AREA</small>
+            </div>
+          </div>
+        </div>
+
+        <form class="booking-form" id="repairForm">
+          <h3>Request a Repair</h3>
+          <p class="form-intro">
+            Complete the form to prepare your service request.
+          </p>
+
+          <div class="form-grid">
+
+            <div class="field">
+              <label for="name">Full Name *</label>
+              <input id="name" name="name" type="text"
+                autocomplete="name" required maxlength="100"
+                placeholder="Your name">
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone Number *</label>
+              <input id="phone" name="phone" type="tel"
+                autocomplete="tel" required maxlength="25"
+                placeholder="Your contact number">
+            </div>
+
+            <div class="field">
+              <label for="email">Email Address</label>
+              <input id="email" name="email" type="email"
+                autocomplete="email" maxlength="150"
+                placeholder="you@example.com">
+            </div>
+
+            <div class="field">
+              <label for="device">Device Type *</label>
+              <select id="device" name="device" required>
+                <option value="">Select a device</option>
+                <option>Desktop Computer</option>
+                <option>Laptop</option>
+                <option>Mobile / Smartphone</option>
+                <option>Tablet</option>
+                <option>Network / Router</option>
+                <option>Printer / Peripheral</option>
+                <option>Multiple Devices</option>
+                <option>Other IT Equipment</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="service">Service Required *</label>
+              <select id="service" name="service" required>
+                <option value="">Select a service</option>
+                <option>Desktop Repair</option>
+                <option>Laptop Repair</option>
+                <option>Mobile Repair</option>
+                <option>Network Troubleshooting</option>
+                <option>Hardware Upgrades</option>
+                <option>OS & Software Installation</option>
+                <option>System Troubleshooting</option>
+                <option>Security & Virus Removal</option>
+                <option>Business IT Support</option>
+                <option>Other Technical Issue</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="issue">Describe the Problem *</label>
+              <textarea id="issue" name="issue" required
+                maxlength="2000"
+                placeholder="Describe the issue, device model and any error messages..."></textarea>
+            </div>
+
+            <div class="field full">
+              <label for="location">Your Location / Area</label>
+              <input id="location" name="location" type="text"
+                maxlength="200"
+                placeholder="City or area">
+            </div>
+
+          </div>
+
+          <button type="submit" class="btn btn-primary form-submit">
+            Continue with WhatsApp →
+          </button>
+
+          <p class="privacy-note">
+            Your request will open in WhatsApp for you to review and send.
+            Do not include passwords or sensitive personal information.
+          </p>
+        </form>
+
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-inner">
+        <div>
+          <h2>Need Help with a Device or Network?</h2>
+          <p>Tell us what's wrong. Let's explore the right solution.</p>
+        </div>
+        <a href="#contact" class="btn btn-primary">Get Started →</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+
+      <div class="footer-grid">
+
+        <div class="footer-about">
+          <a class="logo" href="#home">
+            <div class="logo-icon">⌘</div>
+            <div>Sys<span>Nexa</span></div>
+          </a>
+
+          <p>
+            Your technology support partner for desktop and laptop repair,
+            mobile servicing, network troubleshooting, system upgrades
+            and IT solutions.
+          </p>
+        </div>
+
+        <div class="footer-column">
+          <h4>Quick Links</h4>
+          <a href="#home">Home</a>
+          <a href="#services">Our Services</a>
+          <a href="#about">About SysNexa</a>
+          <a href="#contact">Request a Repair</a>
+        </div>
+
+        <div class="footer-column">
+          <h4>Our Services</h4>
+          <a href="#services">Computer & Laptop Repair</a>
+          <a href="#services">Mobile Servicing</a>
+          <a href="#services">Networking Solutions</a>
+          <a href="#services">Hardware Upgrades</a>
+          <a href="#services">IT Support</a>
+        </div>
+
+      </div>
+
+      <div class="copyright">
+        <span>© <span id="year"></span> SysNexa. All rights reserved.</span>
+        <span>Repair. Upgrade. Reconnect.</span>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Replace the placeholder number in the JavaScript below. -->
+  <a class="whatsapp"
+     href="https://wa.me/"
+     id="whatsappLink"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Contact us on WhatsApp"
+     title="Contact us on WhatsApp">W</a>
+
+  <script>
+    /*
+      SETUP:
+      1. Replace the example WhatsApp number below with your business number.
+      2. Use the country code and number only, with no +, spaces or dashes.
+         Example format for India: 91XXXXXXXXXX
+      3. Update the email, phone and location placeholders in the HTML.
+    */
+
+    const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+
+    // Mobile navigation
+    const menuToggle = document.getElementById("menuToggle");
+    const navLinks = document.getElementById("navLinks");
+
+    menuToggle.addEventListener("click", () => {
+      const isOpen = navLinks.classList.toggle("open");
+      menuToggle.setAttribute("aria-expanded", String(isOpen));
+      menuToggle.textContent = isOpen ? "✕" : "☰";
+    });
+
+    navLinks.querySelectorAll("a").forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.classList.remove("open");
+        menuToggle.setAttribute("aria-expanded", "false");
+        menuToggle.textContent = "☰";
+      });
+    });
+
+    // Current year
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // Fill the service field when a service card is selected
+    document.querySelectorAll("[data-service]").forEach(link => {
+      link.addEventListener("click", () => {
+        const service = link.dataset.service;
+        const select = document.getElementById("service");
+
+        const option = Array.from(select.options).find(
+          item => item.value === service || item.text === service
+        );
+
+        if (option) {
+          select.value = option.value;
+        }
+      });
+    });
+
+    // Configure the WhatsApp shortcut
+    const whatsappLink = document.getElementById("whatsappLink");
+
+    function validWhatsAppNumber(number) {
+      return /^\d{8,15}$/.test(number);
+    }
+
+    if (validWhatsAppNumber(WHATSAPP_NUMBER)) {
+      whatsappLink.href =
+        "https://wa.me/" + WHATSAPP_NUMBER +
+        "?text=" + encodeURIComponent(
+          "Hello SysNexa, I need technical support."
+        );
+    } else {
+      whatsappLink.href = "#contact";
+      whatsappLink.removeAttribute("target");
+    }
+
+    // Prepare the repair request and open WhatsApp
+    document.getElementById("repairForm").addEventListener(
+      "submit", function(event) {
+        event.preventDefault();
+
+        if (!this.reportValidity()) return;
+
+        if (!validWhatsAppNumber(WHATSAPP_NUMBER)) {
+          alert(
+            "Please configure your business WhatsApp number in the JavaScript before submitting requests."
+          );
+          return;
+        }
+
+        const data = new FormData(this);
+
+        const message = [
+          "Hello SysNexa! I would like to request a service.",
+          "",
+          "Name: " + data.get("name"),
+          "Phone: " + data.get("phone"),
+          "Email: " + (data.get("email") || "Not provided"),
+          "Device: " + data.get("device"),
+          "Service: " + data.get("service"),
+          "Problem: " + data.get("issue"),
+          "Location: " + (data.get("location") || "Not provided"),
+          "",
+          "Please contact me regarding this request."
+        ].join("\n");
+
+        const url = "https://wa.me/" + WHATSAPP_NUMBER +
+          "?text=" + encodeURIComponent(message);
+
+        window.open(url, "_blank", "noopener,noreferrer");
+      }
+    );
+  </script>
+
+</body>
+</html>
