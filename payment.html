@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#ffffff">
-  <meta name="description" content="Secure checkout with UPI and other payment methods.">
+  <meta name="description" content="Secure UPI QR checkout.">
 
-  <title>Secure Checkout</title>
+  <title>Secure UPI Checkout</title>
 
   <style>
     :root {
@@ -59,9 +59,6 @@
     .secure {
       color: var(--muted);
       font-size: 13px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
     }
 
     .layout {
@@ -88,16 +85,13 @@
       letter-spacing: -.8px;
     }
 
-    h2 {
-      font-size: 17px;
-      margin: 0 0 18px;
-    }
+    h2 { font-size: 17px; margin: 0 0 18px; }
 
     .subtitle {
       color: var(--muted);
       line-height: 1.6;
       font-size: 14px;
-      margin: 0 0 27px;
+      margin: 0 0 25px;
     }
 
     .field-label {
@@ -113,7 +107,7 @@
       border-radius: 10px;
       padding: 13px 14px;
       outline: none;
-      margin-bottom: 24px;
+      margin-bottom: 23px;
     }
 
     .email:focus {
@@ -121,55 +115,24 @@
       box-shadow: 0 0 0 3px #6741d91a;
     }
 
-    .methods {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 9px;
-      margin-bottom: 20px;
-    }
-
-    .method {
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 11px;
-      padding: 14px 5px;
-      cursor: pointer;
-      color: #50545d;
-      font-size: 13px;
-      font-weight: 650;
-    }
-
-    .method .symbol {
-      display: block;
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .method.active {
-      border: 1.5px solid var(--primary);
-      color: var(--primary);
-      background: #f8f5ff;
-    }
-
     .payment-box {
       background: #fafaff;
       border: 1px solid #e9e4fa;
       border-radius: 13px;
-      padding: 20px;
+      padding: 22px 18px;
       text-align: center;
     }
 
     .upi-mark {
       display: inline-flex;
       align-items: center;
-      justify-content: center;
-      background: #fff;
+      background: white;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 7px 13px;
+      padding: 8px 14px;
       font-weight: 800;
       color: #4e31a5;
-      margin-bottom: 13px;
+      margin-bottom: 12px;
     }
 
     .payment-box h3 {
@@ -181,15 +144,15 @@
       color: var(--muted);
       font-size: 13px;
       line-height: 1.6;
-      margin: 0 0 15px;
+      margin: 0 0 14px;
     }
 
     .qr {
       display: none;
-      width: 190px;
-      height: 190px;
+      width: 210px;
+      height: 210px;
       object-fit: contain;
-      margin: 18px auto;
+      margin: 16px auto;
       padding: 8px;
       background: white;
       border: 1px solid var(--border);
@@ -197,6 +160,13 @@
     }
 
     .qr.visible { display: block; }
+
+    .timer {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 650;
+      margin: 10px 0 15px;
+    }
 
     .button {
       display: block;
@@ -208,20 +178,18 @@
       padding: 15px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background .2s, transform .2s;
+      transition: background .2s;
     }
 
     .button:hover { background: var(--primary-dark); }
-    .button:active { transform: scale(.99); }
     .button:disabled { opacity: .6; cursor: wait; }
 
-    .note {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.6;
-      margin: 14px 0 0;
-      text-align: center;
+    .secondary {
+      background: #29243b;
+      margin-top: 10px;
     }
+
+    .secondary:hover { background: #191523; }
 
     .notice {
       display: none;
@@ -238,11 +206,12 @@
     .notice.info { background: #f0f4ff; color: #303f80; }
     .notice.success { background: #eaf8f0; color: var(--success); }
 
-    .summary-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 24px;
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin: 14px 0 0;
+      text-align: center;
     }
 
     .product {
@@ -265,7 +234,11 @@
     }
 
     .product-name { font-weight: 700; font-size: 14px; }
-    .product-desc { font-size: 12px; color: var(--muted); margin-top: 5px; }
+    .product-desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 5px;
+    }
 
     .price-line {
       display: flex;
@@ -275,7 +248,7 @@
       font-size: 14px;
     }
 
-    .price-line.muted { color: var(--muted); }
+    .muted { color: var(--muted); }
 
     .total {
       border-top: 1px solid var(--border);
@@ -308,10 +281,7 @@
       text-align: center;
     }
 
-    footer a {
-      color: inherit;
-      margin: 0 8px;
-    }
+    footer a { color: inherit; margin: 0 8px; }
 
     @media (max-width: 720px) {
       .layout {
@@ -329,9 +299,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        transition: none !important;
-      }
+      *, *::before, *::after { transition: none !important; }
     }
   </style>
 </head>
@@ -340,7 +308,7 @@
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">Your<span>Store</span></div>
-      <div class="secure">🔒 Secure checkout</div>
+      <div class="secure">🔒 Secure UPI checkout</div>
     </div>
   </header>
 
@@ -348,7 +316,7 @@
     <section class="panel">
       <h1>Complete your purchase</h1>
       <p class="subtitle">
-        Choose your preferred payment method to continue securely.
+        Scan the secure UPI QR code with your payment app.
       </p>
 
       <form id="checkoutForm">
@@ -364,70 +332,53 @@
           required
         >
 
-        <span class="field-label">Payment method</span>
-
-        <div class="methods" role="group" aria-label="Payment method">
-          <button class="method active" type="button"
-            data-method="UPI" aria-pressed="true">
-            <span class="symbol">▦</span>UPI / QR
-          </button>
-          <button class="method" type="button"
-            data-method="CARD" aria-pressed="false">
-            <span class="symbol">▤</span>Cards
-          </button>
-          <button class="method" type="button"
-            data-method="NETBANKING" aria-pressed="false">
-            <span class="symbol">⌂</span>Net banking
-          </button>
-        </div>
-
         <div class="payment-box">
-          <div class="upi-mark" id="methodMark">UPI PAYMENT</div>
+          <div class="upi-mark">▦ &nbsp; UPI PAYMENT</div>
 
-          <h3 id="paymentTitle">Pay using any UPI app</h3>
-
-          <p id="paymentDescription">
-            Continue to the secure payment page to pay with your
-            preferred UPI app or scan the gateway-provided QR code.
+          <h3>Scan and pay</h3>
+          <p>
+            Open your UPI app, scan the QR code and authorize
+            the payment inside your app.
           </p>
 
-          <img id="qrImage" class="qr" alt="Payment QR code">
+          <img id="qrImage" class="qr" alt="Secure payment QR code">
 
-          <p id="qrInstructions" hidden>
-            Scan this QR code using your UPI app. Complete payment
-            in the app and return to this page to check the status.
-          </p>
+          <div id="timer" class="timer" aria-live="polite">
+            A new payment QR will be requested when you continue.
+          </div>
 
-          <button class="button" id="payButton" type="submit">
-            Continue to secure payment
+          <button class="button" id="startButton" type="submit">
+            Generate payment QR
           </button>
 
-          <button class="button" id="checkButton" type="button"
-            style="display:none;margin-top:10px;background:#29243b">
+          <button class="button secondary" id="refreshButton"
+            type="button" hidden>
+            Refresh QR now
+          </button>
+
+          <button class="button secondary" id="statusButton"
+            type="button" hidden>
             Check payment status
           </button>
 
-          <div class="notice" id="notice" role="status"
+          <div id="notice" class="notice" role="status"
             aria-live="polite"></div>
         </div>
 
         <p class="note">
-          Your payment is processed by the selected payment gateway.
-          Never share your UPI PIN or OTP with anyone.
+          Never share your UPI PIN or OTP. Payment is confirmed
+          only after verification by the payment server.
         </p>
       </form>
     </section>
 
     <aside class="panel">
-      <div class="summary-title">
-        <h2 style="margin:0">Order summary</h2>
-        <span style="font-size:12px;color:#70757d">1 item</span>
-      </div>
+      <h2>Order summary</h2>
 
       <div class="product">
         <div class="product-icon">✦</div>
         <div style="flex:1">
-          <div class="product-name" id="productName">Premium Plan</div>
+          <div class="product-name">Premium Plan</div>
           <div class="product-desc">Digital purchase</div>
         </div>
         <strong id="itemPrice">₹499.00</strong>
@@ -435,32 +386,33 @@
 
       <div class="price-line muted">
         <span>Subtotal</span>
-        <span id="subtotal">₹499.00</span>
+        <span>₹499.00</span>
       </div>
 
       <div class="price-line muted">
         <span>Taxes</span>
-        <span id="taxes">As applicable</span>
+        <span>As applicable</span>
       </div>
 
       <div class="price-line total">
         <span>Total</span>
-        <strong id="total">₹499.00</strong>
+        <strong>₹499.00</strong>
       </div>
 
       <div class="security-note">
         <span>🛡️</span>
         <span>
           <strong style="color:#333">Secure payment processing</strong><br>
-          Payment confirmation is based on the gateway's verified
-          transaction status, not a screenshot or browser redirect.
+          Your payment request is generated by the payment server.
+          A QR refresh alone does not prove payment or invalidate
+          a previously issued QR.
         </span>
       </div>
     </aside>
   </main>
 
   <footer>
-    <p>Protected checkout · Secure payment processing</p>
+    <p>Secure checkout · UPI payments</p>
     <a href="/privacy-policy.html">Privacy</a>
     <a href="/terms.html">Terms</a>
     <a href="/contact.html">Contact</a>
@@ -470,274 +422,253 @@
     "use strict";
 
     /*
-      REQUIRED BACKEND CONTRACT
+      BACKEND REQUIRED:
 
-      POST /api/payments/create
-      Request: { planId: "premium-monthly", method: "UPI",
-                 email: "customer@example.com" }
+      POST /api/upi/create
+      Body: { planId: "premium-monthly", email: "..." }
 
-      Example UPI response:
+      Returns:
       {
-        "orderId": "server-generated-order-id",
-        "checkoutUrl": "https://gateway-hosted-checkout.example/...",
-        "qrCodeDataUrl": "data:image/png;base64,..."
+        "orderId": "opaque-order-id",
+        "qrImageDataUrl": "data:image/png;base64,...",
+        "expiresAt": "2026-10-21T09:00:00.000Z"
       }
 
-      The checkout URL and QR data must come from your real gateway
-      integration. Never generate a fake payment QR.
+      POST /api/upi/refresh
+      Body: { orderId: "opaque-order-id" }
 
-      GET /api/payments/status/:orderId
-      Example: { "status": "PENDING" | "COMPLETED" | "FAILED" }
+      Returns a newly generated QR for the SAME unpaid order,
+      or a new order if the previous request expired.
 
-      The server must authenticate with the gateway and verify status.
-      It must calculate prices itself, not trust amounts from the client.
+      GET /api/upi/status/:orderId
+      Returns: { "status": "PENDING" | "COMPLETED" | "FAILED" }
+
+      The server must authenticate with your payment provider,
+      calculate the amount itself, and verify every transaction.
+      Configure the private UPI account only on the server.
     */
 
-    const API_BASE = ""; // Same-origin backend. Configure if needed.
+    const API_BASE = "";
     const PLAN_ID = "premium-monthly";
+    const QR_REFRESH_MS = 120000;
 
-    const methods = document.querySelectorAll(".method");
     const form = document.getElementById("checkoutForm");
-    const payButton = document.getElementById("payButton");
-    const checkButton = document.getElementById("checkButton");
-    const notice = document.getElementById("notice");
+    const emailInput = document.getElementById("email");
     const qrImage = document.getElementById("qrImage");
-    const qrInstructions = document.getElementById("qrInstructions");
+    const timer = document.getElementById("timer");
+    const notice = document.getElementById("notice");
+    const startButton = document.getElementById("startButton");
+    const refreshButton = document.getElementById("refreshButton");
+    const statusButton = document.getElementById("statusButton");
 
-    let selectedMethod = "UPI";
-    let currentOrderId = null;
+    let orderId = null;
+    let refreshAt = 0;
+    let countdownId = null;
+    let refreshTimeoutId = null;
     let busy = false;
+    let paid = false;
 
-    function showNotice(message, type = "info") {
-      notice.textContent = message;
+    function message(text, type = "info") {
+      notice.textContent = text;
       notice.className = "notice show " + type;
-    }
-
-    function clearNotice() {
-      notice.textContent = "";
-      notice.className = "notice";
     }
 
     function setBusy(value) {
       busy = value;
-      payButton.disabled = value;
-      payButton.textContent = value
-        ? "Please wait..."
-        : "Continue to secure payment";
+      startButton.disabled = value;
+      refreshButton.disabled = value;
+      statusButton.disabled = value;
+
+      if (value) {
+        startButton.textContent = "Please wait...";
+      } else {
+        startButton.textContent = orderId
+          ? "Payment QR generated"
+          : "Generate payment QR";
+      }
     }
 
-    methods.forEach(button => {
-      button.addEventListener("click", () => {
-        selectedMethod = button.dataset.method;
-
-        methods.forEach(item => {
-          const active = item === button;
-          item.classList.toggle("active", active);
-          item.setAttribute("aria-pressed", String(active));
-        });
-
-        const labels = {
-          UPI: {
-            mark: "UPI PAYMENT",
-            title: "Pay using any UPI app",
-            description:
-              "Continue to the secure payment page to pay with UPI " +
-              "or display a real QR code returned by your gateway."
-          },
-          CARD: {
-            mark: "CARD PAYMENT",
-            title: "Pay securely by card",
-            description:
-              "Continue to your gateway's hosted checkout to enter " +
-              "your card details securely."
-          },
-          NETBANKING: {
-            mark: "NET BANKING",
-            title: "Pay through your bank",
-            description:
-              "Continue to the gateway to select your bank and " +
-              "authorize the payment."
-          }
-        };
-
-        document.getElementById("methodMark").textContent =
-          labels[selectedMethod].mark;
-        document.getElementById("paymentTitle").textContent =
-          labels[selectedMethod].title;
-        document.getElementById("paymentDescription").textContent =
-          labels[selectedMethod].description;
-
-        qrImage.classList.remove("visible");
-        qrImage.removeAttribute("src");
-        qrInstructions.hidden = true;
-        checkButton.style.display = "none";
-        currentOrderId = null;
-        clearNotice();
+    async function api(path, body) {
+      const response = await fetch(API_BASE + path, {
+        method: body ? "POST" : "GET",
+        headers: body ? { "Content-Type": "application/json" } : {},
+        credentials: "same-origin",
+        cache: "no-store",
+        body: body ? JSON.stringify(body) : undefined
       });
-    });
 
-    async function readJson(response) {
       let data;
-
       try {
         data = await response.json();
       } catch {
-        throw new Error("The server returned an invalid response.");
+        throw new Error("Invalid server response.");
       }
 
       if (!response.ok) {
         throw new Error(
           typeof data.error === "string"
             ? data.error
-            : "Payment request failed. Please try again."
+            : "The payment server could not complete the request."
         );
       }
 
       return data;
     }
 
-    form.addEventListener("submit", async event => {
-      event.preventDefault();
+    function stopTimers() {
+      if (countdownId !== null) clearInterval(countdownId);
+      if (refreshTimeoutId !== null) clearTimeout(refreshTimeoutId);
+      countdownId = null;
+      refreshTimeoutId = null;
+    }
 
-      if (busy) return;
+    function validQrData(value) {
+      return typeof value === "string" &&
+        /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/.test(value);
+    }
 
-      if (!form.reportValidity()) return;
+    function startTimers() {
+      stopTimers();
+      refreshAt = Date.now() + QR_REFRESH_MS;
 
-      clearNotice();
-      qrImage.classList.remove("visible");
-      qrImage.removeAttribute("src");
-      qrInstructions.hidden = true;
-      checkButton.style.display = "none";
-      currentOrderId = null;
+      function updateCountdown() {
+        const remaining = Math.max(0, refreshAt - Date.now());
+        const seconds = Math.ceil(remaining / 1000);
+
+        timer.textContent = remaining > 0
+          ? "QR refresh in " + Math.floor(seconds / 60) +
+            ":" + String(seconds % 60).padStart(2, "0")
+          : "Refreshing payment QR...";
+      }
+
+      updateCountdown();
+      countdownId = setInterval(updateCountdown, 1000);
+
+      refreshTimeoutId = setTimeout(() => {
+        refreshQr();
+      }, QR_REFRESH_MS);
+    }
+
+    function showQr(data) {
+      if (!validQrData(data.qrImageDataUrl)) {
+        throw new Error("The server did not return a valid QR image.");
+      }
+
+      qrImage.src = data.qrImageDataUrl;
+      qrImage.classList.add("visible");
+      refreshButton.hidden = false;
+      statusButton.hidden = false;
+      startTimers();
+    }
+
+    async function createQr() {
+      if (busy || paid) return;
 
       setBusy(true);
+      message("Creating a secure UPI payment request...");
 
       try {
-        const response = await fetch(
-          API_BASE + "/api/payments/create",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            credentials: "same-origin",
-            body: JSON.stringify({
-              planId: PLAN_ID,
-              method: selectedMethod,
-              email: document.getElementById("email").value.trim()
-            })
-          }
-        );
-
-        const data = await readJson(response);
+        const data = await api("/api/upi/create", {
+          planId: PLAN_ID,
+          email: emailInput.value.trim()
+        });
 
         if (typeof data.orderId !== "string" ||
             data.orderId.length < 1 ||
             data.orderId.length > 200) {
-          throw new Error("The server did not return a valid order ID.");
+          throw new Error("Invalid payment order returned by the server.");
         }
 
-        currentOrderId = data.orderId;
-
-        if (selectedMethod === "UPI" && data.qrCodeDataUrl) {
-          // Only accept a QR image provided by the trusted backend.
-          if (!data.qrCodeDataUrl.startsWith("data:image/png;base64,") &&
-              !data.qrCodeDataUrl.startsWith("data:image/jpeg;base64,") &&
-              !data.qrCodeDataUrl.startsWith("data:image/webp;base64,")) {
-            throw new Error("The payment QR image format is invalid.");
-          }
-
-          qrImage.src = data.qrCodeDataUrl;
-          qrImage.classList.add("visible");
-          qrInstructions.hidden = false;
-
-          showNotice(
-            "Payment order created. Scan the gateway-provided QR " +
-            "and complete the payment in your UPI app.",
-            "info"
-          );
-
-          checkButton.style.display = "block";
-        } else if (typeof data.checkoutUrl === "string") {
-          let checkout;
-
-          try {
-            checkout = new URL(data.checkoutUrl);
-          } catch {
-            throw new Error("The gateway checkout URL is invalid.");
-          }
-
-          // Require HTTPS. Your backend must also validate the
-          // gateway's returned URL against its trusted domains.
-          if (checkout.protocol !== "https:") {
-            throw new Error("An HTTPS gateway URL is required.");
-          }
-
-          showNotice("Redirecting to the secure payment gateway...", "info");
-          window.location.assign(checkout.href);
-          return;
-        } else {
-          throw new Error(
-            "The server returned neither a gateway checkout URL " +
-            "nor a payment QR code."
-          );
-        }
-      } catch (error) {
-        showNotice(
-          error instanceof TypeError
-            ? "Cannot connect to the payment server. Check your backend " +
-              "deployment and try again."
-            : error.message || "Unable to start payment.",
-          "error"
+        orderId = data.orderId;
+        showQr(data);
+        message(
+          "QR generated. Complete payment in your UPI app.",
+          "success"
         );
+      } catch (error) {
+        message(error.message || "Unable to generate the payment QR.", "error");
       } finally {
         setBusy(false);
       }
-    });
+    }
 
-    checkButton.addEventListener("click", async () => {
-      if (!currentOrderId || busy) return;
+    async function refreshQr() {
+      if (busy || paid || !orderId) return;
 
       setBusy(true);
-      checkButton.disabled = true;
-      showNotice("Checking verified payment status...", "info");
+      message("Requesting a fresh QR code...");
 
       try {
-        const response = await fetch(
-          API_BASE + "/api/payments/status/" +
-            encodeURIComponent(currentOrderId),
-          {
-            method: "GET",
-            credentials: "same-origin",
-            cache: "no-store"
-          }
-        );
+        const data = await api("/api/upi/refresh", { orderId });
 
-        const data = await readJson(response);
-
-        if (data.status === "COMPLETED") {
-          showNotice(
-            "Payment confirmed by the server. Your order is paid.",
-            "success"
-          );
-          checkButton.style.display = "none";
-        } else if (data.status === "FAILED") {
-          showNotice("The payment failed. You can try again.", "error");
-        } else {
-          showNotice(
-            "Payment is still pending. Complete it in your UPI app " +
-            "and check again shortly.",
-            "info"
-          );
+        if (typeof data.orderId !== "string" ||
+            !data.orderId.length) {
+          throw new Error("Invalid order response during QR refresh.");
         }
+
+        orderId = data.orderId;
+        showQr(data);
+        message("Payment QR refreshed. Check the amount before paying.", "info");
       } catch (error) {
-        showNotice(
-          error.message || "Unable to verify payment status.",
+        stopTimers();
+        timer.textContent = "QR refresh failed. Please try again.";
+        message(
+          (error.message || "QR refresh failed.") +
+          " Use Refresh QR now to retry.",
           "error"
         );
       } finally {
         setBusy(false);
-        checkButton.disabled = false;
       }
+    }
+
+    async function checkStatus() {
+      if (busy || paid || !orderId) return;
+
+      setBusy(true);
+      message("Verifying payment with the payment server...");
+
+      try {
+        const data = await api(
+          "/api/upi/status/" + encodeURIComponent(orderId)
+        );
+
+        if (data.status === "COMPLETED") {
+          paid = true;
+          stopTimers();
+          timer.textContent = "Payment verified.";
+          message("Payment confirmed by the server.", "success");
+          refreshButton.hidden = true;
+          statusButton.hidden = true;
+          qrImage.classList.remove("visible");
+        } else if (data.status === "FAILED") {
+          stopTimers();
+          timer.textContent = "Payment failed.";
+          message("Payment failed. Generate a new payment request.", "error");
+          refreshButton.hidden = true;
+        } else {
+          message(
+            "Payment is still pending. Complete payment in your UPI app.",
+            "info"
+          );
+        }
+      } catch (error) {
+        message(error.message || "Unable to verify payment.", "error");
+      } finally {
+        setBusy(false);
+      }
+    }
+
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      createQr();
     });
+
+    refreshButton.addEventListener("click", refreshQr);
+    statusButton.addEventListener("click", checkStatus);
+
+    window.addEventListener("pagehide", stopTimers);
   </script>
 </body>
 </html>
