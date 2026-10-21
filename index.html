@@ -1,0 +1,345 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#061426">
+
+  <title>SysNexa | Website Under Development</title>
+
+  <meta name="description"
+        content="SysNexa is currently under development. Please visit us again soon for IT support, computer repair, upgrades, and troubleshooting services.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: #061426;
+      --blue: #168cff;
+      --cyan: #00d9ff;
+      --white: #ffffff;
+      --muted: #a8b8cd;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 20% 15%, #0b3260 0%, transparent 45%),
+        radial-gradient(ellipse at 85% 85%, #062c4b 0%, transparent 40%),
+        var(--background);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .background-grid {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.12;
+      background-image:
+        linear-gradient(#168cff 1px, transparent 1px),
+        linear-gradient(90deg, #168cff 1px, transparent 1px);
+      background-size: 55px 55px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    .glow {
+      position: fixed;
+      width: 350px;
+      height: 350px;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.2;
+      pointer-events: none;
+    }
+
+    .glow-one {
+      top: -130px;
+      left: -100px;
+      background: var(--blue);
+    }
+
+    .glow-two {
+      right: -120px;
+      bottom: -130px;
+      background: var(--cyan);
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 780px;
+      padding: 55px 35px;
+      text-align: center;
+      border: 1px solid rgba(93, 174, 255, 0.22);
+      border-radius: 28px;
+      background: rgba(7, 24, 45, 0.76);
+      box-shadow: 0 25px 90px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(15px);
+      animation: appear 0.9s ease both;
+    }
+
+    .logo {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 45px;
+      font-size: clamp(27px, 5vw, 38px);
+      font-weight: 800;
+      letter-spacing: -1.5px;
+    }
+
+    .logo-icon {
+      display: grid;
+      place-items: center;
+      width: 47px;
+      height: 47px;
+      border-radius: 14px;
+      color: white;
+      font-size: 29px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--cyan), var(--blue));
+      box-shadow: 0 0 28px rgba(0, 153, 255, 0.35);
+    }
+
+    .logo-name span {
+      color: var(--cyan);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 25px;
+      padding: 9px 15px;
+      border: 1px solid rgba(0, 217, 255, 0.25);
+      border-radius: 30px;
+      background: rgba(0, 217, 255, 0.07);
+      color: #76eaff;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.7px;
+      text-transform: uppercase;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan);
+      animation: pulse 1.5s infinite;
+    }
+
+    h1 {
+      margin-bottom: 22px;
+      font-size: clamp(36px, 7vw, 62px);
+      line-height: 1.1;
+      letter-spacing: -2px;
+    }
+
+    h1 span {
+      display: block;
+      margin-top: 8px;
+      color: transparent;
+      background: linear-gradient(90deg, #55aaff, var(--cyan));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .description {
+      max-width: 570px;
+      margin: 0 auto;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.9;
+    }
+
+    .loader {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      margin: 35px 0 18px;
+    }
+
+    .loader span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--cyan);
+      animation: bounce 1.2s infinite ease-in-out;
+    }
+
+    .loader span:nth-child(2) {
+      animation-delay: 0.15s;
+    }
+
+    .loader span:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .loading-text {
+      color: #7fa4c8;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .services {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 35px;
+    }
+
+    .service {
+      padding: 10px 13px;
+      border: 1px solid rgba(143, 188, 230, 0.15);
+      border-radius: 9px;
+      background: rgba(255, 255, 255, 0.035);
+      color: #c4d5e8;
+      font-size: 12px;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 23px;
+      border-top: 1px solid rgba(143, 188, 230, 0.12);
+      color: #71869e;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    .footer strong {
+      color: #a8c6e5;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.45; transform: scale(0.8); }
+    }
+
+    @keyframes bounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.55; }
+      30% { transform: translateY(-9px); opacity: 1; }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 500px) {
+      .container {
+        padding: 38px 20px;
+        border-radius: 20px;
+      }
+
+      .logo {
+        margin-bottom: 35px;
+      }
+
+      h1 {
+        letter-spacing: -1px;
+      }
+
+      .description {
+        font-size: 14px;
+      }
+
+      .services {
+        gap: 8px;
+      }
+
+      .service {
+        font-size: 11px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="background-grid"></div>
+  <div class="glow glow-one"></div>
+  <div class="glow glow-two"></div>
+
+  <main class="container">
+
+    <div class="logo" aria-label="SysNexa">
+      <div class="logo-icon">S</div>
+      <div class="logo-name">Sys<span>Nexa</span></div>
+    </div>
+
+    <div class="status">
+      <span class="status-dot"></span>
+      Website in progress
+    </div>
+
+    <h1>
+      Something Great
+      <span>Is Coming Soon.</span>
+    </h1>
+
+    <p class="description">
+      We're working hard behind the scenes to bring you an
+      exceptional technology support experience. Our website
+      is currently under development.
+      <br><br>
+      Thank you for your patience. Please visit us again soon!
+    </p>
+
+    <div class="loader" aria-label="Website development in progress">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <p class="loading-text">Building a better tech experience</p>
+
+    <div class="services">
+      <div class="service">Desktop & Laptop Repair</div>
+      <div class="service">Troubleshooting</div>
+      <div class="service">System Upgrades</div>
+      <div class="service">IT Support</div>
+      <div class="service">Network Solutions</div>
+    </div>
+
+    <footer class="footer">
+      <strong>SysNexa</strong> — Repair. Upgrade. Connect.
+      <br>
+      &copy; <span id="year"></span> SysNexa. All rights reserved.
+    </footer>
+
+  </main>
+
+  <script>
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+  </script>
+</body>
+</html>
+```
