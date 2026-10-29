@@ -918,15 +918,15 @@
           <p>Fill in a few details and we'll prepare a message for WhatsApp. You can review it before sending.</p>
           <div class="contact-detail">
             <span class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M4 6.5 12 13l8-6.5M5 5h14a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <span><strong>Email support</strong><small>YOUR_EMAIL@example.com</small></span>
+            <span><strong>Email support</strong><small>amsgr4@hotmail.com</small></span>
           </div>
           <div class="contact-detail">
             <span class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M7 3h3l2 5-2.5 1.7a15 15 0 0 0 4.8 4.8L16 12l5 2v3c0 1.1-.9 2-2 2C10.7 19 5 13.3 5 6c0-1.7.7-3 2-3Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg></span>
-            <span><strong>Phone / WhatsApp</strong><small>YOUR_PHONE_NUMBER</small></span>
+            <span><strong>Phone / WhatsApp</strong><small>9591478095</small></span>
           </div>
           <div class="contact-detail">
             <span class="detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.2" stroke="currentColor" stroke-width="1.7"/></svg></span>
-            <span><strong>Service area</strong><small>YOUR CITY / SERVICE AREA</small></span>
+            <span><strong>Service area</strong><small>Vidyaranyapura,Bangalore</small></span>
           </div>
         </div>
 
@@ -1034,14 +1034,13 @@
     </div>
   </footer>
 
-  <a class="whatsapp" href="https://wa.me/" id="whatsappLink" target="_blank" rel="noopener noreferrer" aria-label="Contact SysNexa on WhatsApp" title="Contact us on WhatsApp">
+  <a class="whatsapp" href="https://wa.me/919591478095" id="whatsappLink" target="_blank" rel="noopener noreferrer" aria-label="Contact SysNexa on WhatsApp" title="Contact us on WhatsApp">
     <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2a9.9 9.9 0 0 0-8.48 15.01L2.2 22l5.12-1.34A9.93 9.93 0 1 0 12.04 2Zm0 18.1a8.16 8.16 0 0 1-4.16-1.14l-.3-.18-3.04.8.81-2.96-.2-.31A8.18 8.18 0 1 1 12.04 20.1Zm4.49-6.12c-.25-.13-1.49-.74-1.72-.82-.23-.08-.4-.13-.57.13-.17.25-.65.82-.8.99-.15.17-.3.19-.55.06-.25-.12-1.06-.39-2.02-1.23-.75-.67-1.25-1.5-1.4-1.75-.15-.25-.02-.38.11-.51.11-.11.25-.3.38-.44.12-.14.16-.24.25-.4.08-.17.04-.32-.02-.45-.07-.12-.57-1.37-.78-1.87-.2-.49-.41-.42-.57-.43h-.49c-.17 0-.45.06-.68.32-.23.25-.89.87-.89 2.12s.91 2.46 1.04 2.63c.13.17 1.79 2.73 4.34 3.83.61.26 1.09.42 1.46.54.61.19 1.17.16 1.61.1.49-.07 1.49-.61 1.7-1.2.21-.59.21-1.1.15-1.2-.06-.1-.23-.16-.48-.29Z"/></svg>
   </a>
 
   <script>
-    // Replace with your full country code and WhatsApp number, digits only.
-    // Example format for India: 91XXXXXXXXXX
-    const WHATSAPP_NUMBER = "91XXXXXXXXXX";
+    // Include the country code, with digits only (India: 91 + the 10-digit number).
+    const WHATSAPP_NUMBER = "919591478095";
 
     const menuToggle = document.getElementById("menuToggle");
     const navLinks = document.getElementById("navLinks");
@@ -1076,44 +1075,42 @@
       });
     });
 
-    function validWhatsAppNumber(number) {
-      return /^\d{8,15}$/.test(number);
+    function isValidWhatsAppNumber(number) {
+      return /^[1-9]\d{7,14}$/.test(number);
+    }
+
+    function createWhatsAppUrl(message) {
+      if (!isValidWhatsAppNumber(WHATSAPP_NUMBER)) {
+        throw new Error("Configure WHATSAPP_NUMBER as 8–15 digits including the country code.");
+      }
+
+      const url = new URL("https://wa.me/" + WHATSAPP_NUMBER);
+      url.searchParams.set("text", message);
+      return url.href;
     }
 
     const whatsappLink = document.getElementById("whatsappLink");
-    if (validWhatsAppNumber(WHATSAPP_NUMBER)) {
-      whatsappLink.href = "https://wa.me/" + WHATSAPP_NUMBER +
-        "?text=" + encodeURIComponent("Hello SysNexa, I need technical support.");
-    } else {
-      whatsappLink.href = "#contact";
-      whatsappLink.removeAttribute("target");
-    }
+    whatsappLink.href = createWhatsAppUrl("Hello SysNexa, I need technical support.");
 
     document.getElementById("repairForm").addEventListener("submit", function (event) {
       event.preventDefault();
       if (!this.reportValidity()) return;
 
-      if (!validWhatsAppNumber(WHATSAPP_NUMBER)) {
-        window.alert("Please add your business WhatsApp number in the page's JavaScript before submitting requests.");
-        return;
-      }
-
       const data = new FormData(this);
       const message = [
         "Hello SysNexa! I would like to request a service.",
         "",
-        "Name: " + data.get("name"),
-        "Phone: " + data.get("phone"),
-        "Email: " + (data.get("email") || "Not provided"),
-        "Device: " + data.get("device"),
-        "Service: " + data.get("service"),
-        "Problem: " + data.get("issue"),
-        "Location: " + (data.get("location") || "Not provided"),
+        "Name: " + String(data.get("name")).trim(),
+        "Phone: " + String(data.get("phone")).trim(),
+        "Email: " + (String(data.get("email")).trim() || "Not provided"),
+        "Device: " + String(data.get("device")).trim(),
+        "Service: " + String(data.get("service")).trim(),
+        "Problem: " + String(data.get("issue")).trim(),
+        "Location: " + (String(data.get("location")).trim() || "Not provided"),
         "",
         "Please contact me regarding this request."
       ].join("\n");
-      const url = "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
-      window.open(url, "_blank", "noopener,noreferrer");
+      window.open(createWhatsAppUrl(message), "_blank", "noopener,noreferrer");
     });
   </script>
 </body>
